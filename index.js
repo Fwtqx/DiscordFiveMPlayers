@@ -8,11 +8,11 @@ const app = express()
 app.set('view engine', 'pug');
 moment.locale('fr');
 
-const TOKEN_BOT = 'TOKEN OF YOUR BOT DISCORD';
-const ID_SERVER_FIVEM = 'ID OF YOUR SERVER FIVEM';
+const TOKEN_BOT = 'ODk2ODcxNTA5NDI2MDczNjAx.G4lvZc.JajxaFSzx-ep40o8lwgWRf-R8tAtdoBLnZOpE0';
+const ID_SERVER_FIVEM = '3lpdlz';
 
-const withChannel = false;
-const ID_CHANNEL_PLAYERS = 'ID OF YOUR CHANNEL';
+const withChannel = true;
+const ID_CHANNEL_PLAYERS = '1136059252960677988';
 
 const PORT = process.env.PORT || 3000;
 

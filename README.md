@@ -56,3 +56,7 @@ If you also want the option with the voice channel, you must fill in the other 2
 
 
 8. Enjoy !
+
+VIDEO TUTORIAL & EXAMPLE
+
+![Variable](./img/video.mp4)
