@@ -59,4 +59,5 @@ If you also want the option with the voice channel, you must fill in the other 2
 
 VIDEO TUTORIAL & EXAMPLE
 
-![Variable](./img/video.mp4)
+https://github.com/WhySimply/DiscordFiveMPlayers/assets/32036358/32ddedac-cdc8-4c16-b4b0-6409acbcf57f
+
