@@ -1,16 +1,18 @@
 const express = require('express')
 const moment = require('moment');
 const cron = require('node-cron');
-const puppeteer = require('puppeteer');
 const Discord = require('discord.js');
+const https = require('https');
 
 const app = express()
 app.set('view engine', 'pug');
 moment.locale('fr');
 
-const TOKEN_BOT = 'TOKEN BOT HERE';
-const URL_FIVEM = 'URL FIVEM DETAIL SERVER HERE EXAMPLE : https://servers.fivem.net/servers/detail/id';
-const ID_CHANNEL_PLAYERS = 'ID CHANNEL TO CHANGE NAME OF THIS';
+const TOKEN_BOT = 'TOKEN OF YOUR BOT DISCORD';
+const ID_SERVER_FIVEM = 'ID OF YOUR SERVER FIVEM';
+
+const withChannel = false;
+const ID_CHANNEL_PLAYERS = 'ID OF YOUR CHANNEL';
 
 const PORT = process.env.PORT || 3000;
 
@@ -21,40 +23,51 @@ async function getInfos() {
 
         client.on("ready", async () => {
             console.log('BOT DISCORD CONNECTED AND STARTED...');
-            const browser = await puppeteer.launch({
-                headless: true,
-                args: ['--no-sandbox', '--disable-setuid-sandbox'],
-            });
-            const page = await browser.newPage();
+           
+            https.get({
+                hostname: 'servers-frontend.fivem.net',
+                path: `/api/servers/single/${ID_SERVER_FIVEM}`,
+                headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36' }
+            }, res => {
+                if (res.statusCode !== 200) {
+                    console.log('FIVEM ERROR GET INFORMATIONS... RETRY LATER');
+                    console.error(`Did not get an OK from the server. Code: ${res.statusCode}`);
+                    res.resume();
+                    return;
+                }
+                let data = '';
 
-            await page.goto(URL_FIVEM);
-
-            console.log('INFORMATIONS OF SERVER RECEIVED...');
-            const element = await page.$('.players-count');
-            if (!!element) {
-                const text = await (await element.getProperty('textContent')).jsonValue();
+                res.on('data', (chunk) => {
+                  data += chunk;
+                });
+              
+                res.on('close', () => {
+                  console.log('INFORMATIONS OF SERVER RECEIVED...');
+                  data = JSON.parse(data);
+                  const players = data.Data.clients;
+                  const maxPlayers = data.Data.svMaxclients;
 
                 /**
                  * SET NUMBER OF PLAYERS INTO NAME CHANNEL DISCORD
-                 * COMMENT/DECOMMENT BLOCK TO USE IT
                  **/
-                client.channels.fetch(ID_CHANNEL_PLAYERS).then(channel => {
-                    console.log('SET NEW NAME WITH PLAYERS ON CHANNEL NAME...');
-                    channel.setName(`Joueurs: ${text.replace('group', '')}`);
-                    console.log(`JOUEURS: ${text.replace('group', '')}`);
-                });
-
+                if(withChannel){
+                    client.channels.fetch(ID_CHANNEL_PLAYERS).then(channel => {
+                        console.log('SET NEW NAME WITH PLAYERS ON CHANNEL NAME...');
+                        channel.setName(`Joueurs: ${players}/${maxPlayers}`);
+                        console.log(`JOUEURS: ${players}/${maxPlayers}`);
+                    });
+                }
+                
                 /**
                  * SET NUMBER OF PLAYERS IN ACTIVITY BOT
                  * COMMENT/DECOMMENT LINES TO USE IT
                  **/
                 client.user.setStatus('online');
-                client.user.setActivity(`${text.replace('group', '')} Joueurs`);
+                client.user.setActivity(`${players}/${maxPlayers} Joueurs`);
 
-            } else {
-                console.log('FIVEM ERROR GET INFORMATIONS... RETRY LATER');
-            }
-            await browser.close();
+                });
+            });
+           
         });
         client.login(TOKEN_BOT);
     } catch (error) {

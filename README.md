@@ -27,24 +27,32 @@ nothing needs to be changed on the GTA server side.
 
 ![Varaible](./img/variables.png)
 
+
+You have 2 possibilities to display the number of players,
+
+Either as an activity under the bot
+
+![Variable](./img/players.png)
+
+And you also have the possibility to activate the same to display the number of players in the name of a voice channel
+
+![Variable](./img/players_2.png)
+
+
+if you want the first result only, just fill in the following variables:
+
 - TOKEN_BOT => bot token
+- ID_SERVER_FIVEM => This is the end of the server url ! example with https://servers.fivem.net/servers/detail/ID_EXAMPLE with this url it would be ID_EXAMPLE
 
-- URL_FIVEM => Enter the FiveM detail url of your ex server (https://servers.fivem.net/servers/detail/id)
 
+If you also want the option with the voice channel, you must fill in the other 2 variables:
+
+- withChannel => switch to true
 - ID_CHANNEL_PLAYERS => Enter the identifier of the channel where you want the number of players to appear (if you do
   not know how to copy the identifier, you must put yourself in developer mode on discord and right click on the channel
   then copy the identifier )
-
 
 7. Start script with 'node index.js'
 
 
 8. Enjoy !
-
-Exemple of result (with activity bot):
-
-![Variable](./img/players_2.png)
-
-Exemple of result (with channel name):
-
-![Variable](./img/players.png)

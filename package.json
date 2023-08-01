@@ -1,18 +1,11 @@
 {
-  "name": "madenn",
+  "name": "Discord fivem",
   "version": "1.0.0",
   "description": "Projet front - permet de scraper les informations des différentes applications by MyBus et de les afficher sur une page pour voir d'un coup d'oeil les différentes versions et date de publication",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
-  },
-  "engines": {
-    "node": "16.6.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.monkeyfactory.fr:mybus/madenn.git"
   },
   "author": "",
   "license": "ISC",
