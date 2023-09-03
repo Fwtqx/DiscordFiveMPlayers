@@ -8,10 +8,10 @@ const app = express()
 app.set('view engine', 'pug');
 moment.locale('fr');
 
-const TOKEN_BOT = 'ODk2ODcxNTA5NDI2MDczNjAx.G4lvZc.JajxaFSzx-ep40o8lwgWRf-R8tAtdoBLnZOpE0';
-const ID_SERVER_FIVEM = '3lpdlz';
+const TOKEN_BOT = 'MTAzNjUxOTI1MDY2NTQwNjUyNQ.GnsZ0j.Z-Zpsi-fXaMmEFlzO3vrZgLnhopCjtPgYr4Xss';
+const ID_SERVER_FIVEM = 'qrpm7v';
 
-const withChannel = true;
+const withChannel = false;
 const ID_CHANNEL_PLAYERS = '1136059252960677988';
 
 const PORT = process.env.PORT || 3000;
